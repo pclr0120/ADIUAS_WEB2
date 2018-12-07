@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-buttons slot="start">
+        <ion-menu-toggle>
+          <ion-button>
+            <ion-icon slot="icon-only" name="menu"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+      </ion-buttons>
+  <ion-toolbar>
+    <ion-title>MENU:Archivos Generales</ion-title>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+      <ion-item [routerDirection]="forward" [routerLink]="[p.url]">
+        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-label>
+          {{p.title}}
+        </ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
+</ion-content>

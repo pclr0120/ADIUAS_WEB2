@@ -1,0 +1,89 @@
+<ion-header color="blue">
+
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-toggle>
+        <ion-button>
+          <ion-icon slot="icon-only" name="menu"></ion-icon>
+        </ion-button>
+      </ion-menu-toggle>
+    </ion-buttons>
+    <ion-row>
+      <ion-col>
+        <ion-back-button item-start defaultHref="/ag-sub-Menu"></ion-back-button>
+      </ion-col>
+      <ion-col>
+        <ion-title>Programa Educativo</ion-title>
+      </ion-col>
+      <ion-col>
+
+      </ion-col>
+      <ion-button href="/ProgramaEduactivo/Registro">
+        <ion-icon name="add"></ion-icon>
+        Agregar
+
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card style="  background: rgb(238, 238, 245);">
+    <ion-card-header>
+      <ion-searchbar (ionInput)="servicio.Buscar($event)" placeholder="Buscar por Programa o Unidad academica"></ion-searchbar>
+      <ion-row>
+        <hr>
+        <ion-col>
+          <ion-item style="width: 200px;color:black;background: white">
+            <ion-label>Pagina</ion-label>
+            <ion-select [(ngModel)]="servicio.paginaActual">
+
+              <ion-select-option *ngFor="let d of servicio.TotalPaginas;let i=index;" [value]="d">{{d}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <label style="font-size: 20px;color:rgb(5, 7, 126);">Total de registros:{{servicio.Tabla.length}}</label>
+
+        </ion-col>
+
+      </ion-row>
+
+    </ion-card-header>
+    <h1 *ngIf="servicio.TablaAuxiliar.length<1" style="text-align: center;color:brown;">Resultado:{{servicio.mensaje}}</h1>
+    <ion-card-content *ngIf="servicio.TablaAuxiliar.length>0">
+      <ion-row>
+
+        <table class="table table-hover " style=" display: block;overflow: scroll;height: 500px;background: white">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">programa</th>
+              <th scope="col">Nivel Educativo</th>
+              <th scope="col">Unidad Regional</th>
+              <th scope="col">Unidad Academica</th>
+              <th scope="col">Controles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let t of servicio.TablaAuxiliar| slice: -servicio.paginaActual;let i=index">
+              <th scope="row">{{i+1}}</th>
+              <td>{{t.NomPE}}</td>
+              <td>{{t.NivelEdu}}</td>
+              <td>{{t.UnidReg}}</td>
+              <td>{{t.Nombre_UA}}</td>
+              <td>
+                <button ion-button (click)="ShowUpdate(c.idProgEdu)" class="botonActualizar">
+                  <ion-icon name="create"></ion-icon>
+                </button>
+
+                <button ion-button class="botonEliminar">
+                  <ion-icon name="trash"></ion-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

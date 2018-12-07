@@ -1,0 +1,90 @@
+<ion-header color="blue">
+  <ion-toolbar>
+    <ion-row>
+      <ion-col>
+        <ion-back-button item-start defaultHref="/ProgramaEduactivo/Tabla"></ion-back-button>
+      </ion-col>
+      <ion-col>
+        <ion-title>Registrar Programa Educativo</ion-title>
+      </ion-col>
+      <ion-col>
+
+      </ion-col>
+  
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <form [formGroup]="Programa">
+    <ion-list>
+      <ion-item>
+        <ion-label color="primary" fixed>Programa</ion-label>
+        <ion-input type="text" [(ngModel)]="servicio.Registro.NomPE" maxlength="120" minlength="5" placeholder="Nombre del programa"
+          name="NomPE" required formControlName="NomPE"></ion-input>
+
+        <ion-icon *ngIf="Programa.controls.NomPE.invalid && servicio.Registro.NomPE.length > 0" item-end style="color:rgb(228, 19, 19)"
+          name="close-circle"></ion-icon>
+        <ion-icon *ngIf="Programa.controls.NomPE.valid && servicio.Registro.NomPE.length > 0" item-end style="color:green"
+          name="checkmark-circle"></ion-icon>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label color="primary">Nivel Educativo</ion-label>
+        <ion-select  interface="action-sheet"   name="NivelEdu" required formControlName="NivelEdu"
+          [(ngModel)]="servicio.Registro.NivelEdu">
+          <ion-select-option value="">Seleccione un nivel</ion-select-option>
+          <ion-select-option value="MEDIA SUPERIOR">MEDIA SUPERIOR</ion-select-option>
+          <ion-select-option value="SUPERIOR">SUPERIOR</ion-select-option>
+          <ion-select-option value="POSGRADO">POSGRADO</ion-select-option>
+
+        </ion-select>
+        <ion-icon *ngIf="Programa.controls.NivelEdu.valid" item-end style="color:green" name="checkmark-circle"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label  class="ese" color="primary">Unidad Regional</ion-label>
+        <ion-select  interface="action-sheet"  formControlName="UnidReg" name="UnidReg" required [(ngModel)]="servicio.Registro.UnidReg">
+          <ion-select-option value="">Seleccione una region</ion-select-option>
+          <ion-select-option value="Centro">Centro</ion-select-option>
+          <ion-select-option value="Centro Norte">Centro Norte</ion-select-option>
+          <ion-select-option value="Sur">Sur</ion-select-option>
+          <ion-select-option value="Norte">Norte</ion-select-option>
+        </ion-select>
+        <ion-icon *ngIf="Programa.controls.UnidReg.valid" item-end style="color:green" name="checkmark-circle"></ion-icon>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Unidad Academica</ion-label>
+        <ion-select  interface="action-sheet"  name="UnidAcad" [disabled]="!Programa.controls.UnidReg.valid"
+          required formControlName="UnidAcad" [(ngModel)]="servicio.Registro.UnidAcad">
+          <ion-select-option  value="">Seleccione la unidad academica</ion-select-option>
+          <ion-select-option  *ngFor="let p of servicio.Tabla" [value]="p.IDUnidad_Acad">{{p.Nombre_UA}}</ion-select-option>
+        </ion-select>
+        <ion-icon *ngIf="Programa.controls.UnidAcad.valid" item-end style="color:green" name="checkmark-circle"></ion-icon>
+      </ion-item>
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+
+            <ion-button color="danger" (click)="cancelar();" full >
+              <ion-icon name="md-close"></ion-icon>Cancelar
+            </ion-button >
+          </ion-col>
+
+          <ion-col>
+            <ion-button  color="success" full  (click)="guardar();" [disabled]="!Programa.valid ">
+              <ion-icon name="add-circle"></ion-icon>Guardar
+            </ion-button >
+          </ion-col>
+
+
+        </ion-row>
+      </ion-grid>
+
+    </ion-list>
+  </form>
+
+</ion-content>
